@@ -1,12 +1,20 @@
-import { promises as fs } from "fs";
-import path from "path";
+'use client'
 
-export const dynamic = "force-dynamic"; // ensure latest file read each time
+import { Email } from "@/model/email.interface";
+import { useEffect, useState } from "react";
 
-export default async function AdminPage() {
-  const filePath = path.join(process.cwd(), "data", "emails.json");
-  const data = await fs.readFile(filePath, "utf-8");
-  const emails: string[] = JSON.parse(data);
+const AdminPage = () => {
+  const [emails, setEmails] = useState<Email[]>([]);
+
+  useEffect(() => {
+    const fetchEmails = async () => {
+      const res = await fetch('/api/ea-signups')
+      const retrievedEmails: Email[] = await res.json()
+      setEmails(retrievedEmails)
+    }
+
+    fetchEmails();
+  }, [])
 
   return (
     <main className="min-h-screen bg-zinc-900 text-white p-8">
@@ -15,10 +23,12 @@ export default async function AdminPage() {
       <ul className="space-y-2">
         {emails.map((email, i) => (
           <li key={i} className="bg-zinc-800 p-3 rounded-lg">
-            {email}
+            {email.email}
           </li>
         ))}
       </ul>
     </main>
   );
 }
+
+export default AdminPage;

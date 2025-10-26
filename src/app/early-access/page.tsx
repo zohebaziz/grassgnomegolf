@@ -14,7 +14,7 @@ export default function HomePage() {
     setError("");
 
     try {
-      const res = await fetch("/api/submit", {
+      const res = await fetch("/api/ea-signups", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -56,7 +56,7 @@ export default function HomePage() {
               disabled={loading}
               className="w-full py-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 transition-colors font-semibold disabled:opacity-50"
             >
-              {loading ? "Submitting..." : "Wishlist"}
+              {loading ? "Submitting..." : "Sign Up"}
             </button>
           </form>
         ) : (
