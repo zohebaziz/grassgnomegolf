@@ -1,7 +1,7 @@
 
 import { MongoClient, ServerApiVersion } from 'mongodb';
 export const mongoUri = process.env.MONGO_URI!!
-export const mongoEnvType = process.env.MOGNO_ENV_TYPE ?? "dev"
+export const mongoEnvType = process.env.MONGO_ENV_TYPE ?? "dev"
 
 export const mongoClient = new MongoClient(mongoUri, {
   serverApi: {
