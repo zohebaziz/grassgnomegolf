@@ -18,7 +18,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    // easter eggs
+  // easter eggs
   useEffect(() => {
     easterEggs();
   }, []);
@@ -31,8 +31,7 @@ export default function RootLayout({
     (window as any).help = () => {
       console.log("%cAvailable commands:", "color: #00ffcc");
       console.log("%cbackflip() %c– BACKFLIP", "color: #ff66cc", "color: #ccc");
-      console.log("%ccolorblast() %c– goes full rave mode", "color: #ff66cc", "color: #ccc");
-      console.log("%cgolf() %c– summons the gnome 👀", "color: #ff66cc", "color: #ccc");
+      console.log("%cgnolf() %c–👀", "color: #ff66cc", "color: #ccc");
     };
 
     (window as any).backflip = () => {
@@ -43,6 +42,11 @@ export default function RootLayout({
         document.body.style.transition = "";
         document.body.style.transform = "";
       }, 900);
+    }
+
+    (window as any).gnolf = () => {
+      sessionStorage.setItem("canPlayGnolf", "true");
+      window.location.href = "/gnolf";
     }
 
     setTimeout(() => {
