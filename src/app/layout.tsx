@@ -45,7 +45,7 @@ export default function RootLayout({
     }
 
     (window as any).gnolf = () => {
-      sessionStorage.setItem("canPlayGnolf", "true");
+      localStorage.setItem("canPlayGnolf", "true");
       window.location.href = "/gnolf";
     }
 
