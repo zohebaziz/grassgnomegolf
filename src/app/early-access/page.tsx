@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 
+
+const STEAM_APP_ID = "YOUR_APP_ID";
+
 export default function HomePage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,19 +22,12 @@ export default function HomePage() {
     setLoading(true);
     setError("");
 
-    const steamAppId = "YOUR_APP_ID";
-    const steamAppUrl = `steam://store/${steamAppId}`;
-    const steamWebUrl = `https://store.steampowered.com/app/${steamAppId}/`;
+    const steamWebUrl = `https://store.steampowered.com/app/${STEAM_APP_ID}/`;
 
     localStorage.setItem("ggg_signup_success", "true");
     setSubmitted(true);
 
-    const newTab = window.open(steamAppUrl, "_blank");
-    setTimeout(() => {
-      if (newTab && !newTab.closed) {
-        newTab.location.href = steamWebUrl;
-      }
-    }, 800);
+    window.open(steamWebUrl, "_blank");
 
     fetch("/api/ea-signups", {
       method: "POST",

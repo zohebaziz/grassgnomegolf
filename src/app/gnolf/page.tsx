@@ -79,7 +79,7 @@ export default function GolfGame() {
 
 
   useEffect(() => {
-    const allowed = sessionStorage.getItem("canPlayGnolf");
+    const allowed = localStorage.getItem("canPlayGnolf");
     if (allowed !== "true") {
       router.replace("/");
     }
