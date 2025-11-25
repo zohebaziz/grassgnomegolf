@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 
-const STEAM_APP_ID = "YOUR_APP_ID";
+const STEAM_APP_ID = "4169150";
 
 export default function HomePage() {
   const [email, setEmail] = useState("");
