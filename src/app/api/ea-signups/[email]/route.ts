@@ -3,7 +3,7 @@ import { deleteEmail } from "@/service/mongo/email.service";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { email: string } }
+  { params }: { params: Promise<{ email: string }> }
 ) {
   try {
     const { email } = await params;

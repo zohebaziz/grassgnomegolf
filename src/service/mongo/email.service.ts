@@ -29,22 +29,19 @@ export async function getEmails(): Promise<Email[]> {
 }
 
 export async function deleteEmail(email: string): Promise<void> {
-  const session = mongoClient.startSession();
   try {
-    await session.withTransaction(async () => {
-      const db = mongoClient.db(dbName);
-      const mainCollection = db.collection(collectionName);
-      const backupCollection = db.collection(backupCollectionName);
+    await mongoClient.connect();
+    const db = mongoClient.db(dbName);
+    const mainCollection = db.collection(collectionName);
+    const backupCollection = db.collection(backupCollectionName);
 
-      const emailToDelete = await mainCollection.findOne({ email });
+    const emailToDelete = await mainCollection.findOne({ email });
 
-      if (emailToDelete) {
-        await backupCollection.insertOne(emailToDelete);
-        await mainCollection.deleteOne({ email });
-      }
-    });
+    if (emailToDelete) {
+      await backupCollection.insertOne(emailToDelete);
+      await mainCollection.deleteOne({ email });
+    }
   } finally {
-    await session.endSession();
     await mongoClient.close();
   }
 }

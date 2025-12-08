@@ -1,7 +1,7 @@
 'use client'
 
 import { Email } from "@/model/email.interface";
-import { Trash2 } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const AdminPage = () => {
@@ -9,6 +9,7 @@ const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [deleteError, setDeleteError] = useState("");
 
   useEffect(() => {
     // This effect will only run if the user is authenticated
@@ -44,6 +45,7 @@ const AdminPage = () => {
   };
 
   const handleDelete = async (emailToDelete: string) => {
+    setDeleteError("");
     if (window.confirm(`Are you sure you want to delete ${emailToDelete}?`)) {
       try {
         const res = await fetch(`/api/ea-signups/${emailToDelete}`, {
@@ -54,11 +56,11 @@ const AdminPage = () => {
           setEmails(emails.filter((email) => email.email !== emailToDelete));
         } else {
           const data = await res.json();
-          alert(data.error || "Deletion failed");
+          setDeleteError(data.error || "Deletion failed");
         }
       } catch (err) {
         console.error(err);
-        alert("An error occurred while deleting the email.");
+        setDeleteError("An error occurred while deleting the email.");
       }
     }
   }
@@ -94,6 +96,17 @@ const AdminPage = () => {
   return (
     <main className="min-h-screen bg-zinc-900 text-white p-8">
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+
+      {deleteError && (
+        <div className="bg-red-900 border border-red-400 text-red-100 px-4 py-3 rounded-lg relative mb-4" role="alert">
+          <strong className="font-bold">Error:</strong>
+          <span className="block sm:inline ml-2">{deleteError}</span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-3" onClick={() => setDeleteError("")}>
+            <X className="h-6 w-6 text-red-100 hover:text-white cursor-pointer" />
+          </span>
+        </div>
+      )}
+
       <p className="text-zinc-400 mb-6">Total signups: {emails.length}</p>
       <ul className="space-y-2">
         {emails.map((email, i) => (
