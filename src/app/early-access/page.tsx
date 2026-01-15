@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
         )}
         {!submitted && (
-          <p className="text-zinc-400">Sign up today and be featured on Guiseepe!</p>
+          <p className="text-zinc-400">Enter your email for exclusive in-game rewards</p>
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
